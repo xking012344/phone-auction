@@ -1,7 +1,7 @@
 //foldable phones
 
-class Phone(var isScreenLightOn: Boolean = false){
-    fun switchOn() {
+open class Phone(var isScreenLightOn: Boolean = false){
+    open fun switchOn() {
         isScreenLightOn = true
     }
 
@@ -15,18 +15,30 @@ class Phone(var isScreenLightOn: Boolean = false){
     }
 }
 
-class FoldablePhone(var isPhoneFolded: Boolean = false){
-    var isScreenLightOn = true
-    fun switchOn() {
-        if (isPhoneFolded == true) {
-            isScreenLightOn = false
-        } else {
+class FoldablePhone(var isPhoneFolded: Boolean = true): Phone() {
+    override fun switchOn() {
+        if (isPhoneFolded == false) {
             isScreenLightOn = true
+        } else {
+            isScreenLightOn = false
         }
     }
 
-    fun changeFoldingState(){
-        val phoneFolded = if (isPhoneFolded) "folded" else "unfolded"
-        println("The phone's folded state is $phoneFolded")
+    fun fold() {
+        isPhoneFolded = true
+    }
+
+    fun unfold() {
+        isPhoneFolded = false
     }
 }
+
+    fun main(){
+        val newFoldablePhone = FoldablePhone()
+
+        newFoldablePhone.switchOn()
+        newFoldablePhone.checkPhoneScreenLight()
+        newFoldablePhone.unfold()
+        newFoldablePhone.switchOn()
+        newFoldablePhone.checkPhoneScreenLight()
+    }
